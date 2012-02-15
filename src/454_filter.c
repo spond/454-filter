@@ -72,6 +72,7 @@ void reportVectorStats (const struct vector *vector, const char * title)
 	{
 		d1+=vector->vData[i]; d2+=vector->vData[i]*vector->vData[i];
 	}
+
 	fprintf (stderr, "\n%s\n",title);
 	fprintf (stderr,"Mean          : %g\n", d1/vector->vLength);
 	fprintf (stderr,"Median        : %g\n", (double)(vector->vLength%2?vector->vData[vector->vLength/2]:0.5*(vector->vData[vector->vLength/2]+vector->vData[vector->vLength/2-1])));
@@ -655,8 +656,18 @@ int main (int argc, const char * argv[])
 		columnCount++;
 	}
 	
+	fprintf (stderr, "\nPARAMETERS", argv[0]);	
+	fprintf (stderr, "\nFNA input file : %s", argv[1]);	
+	fprintf (stderr, "\nQUAL input file : %s", argv[2]);	
+	fprintf (stderr, "\nMin q-score : %s", argv[3]);	
+	fprintf (stderr, "\nMin contig length : %s", argv[4]);	
+	fprintf (stderr, "\nFiltering mode : %s", argv[5]);
+	fprintf (stderr, "\n5'tag : %s", argv[6]);	
+	fprintf (stderr, "\nMax mismatches : %s\n", argv[7]);	
+	
 	fprintf (stderr, "\nREAD STATISTICS\nOriginal     reads: %ld\nContributing reads: %ld\nRetained fragments: %ld\n", readStats[0], readStats[1], readStats[2]);
 	qsort   (originalL->vData, originalL->vLength, sizeof (vector_load), vecComp);
+	
 	reportVectorStats (originalL, "Original read length distribution");
 	qsort   (retainedL->vData, retainedL->vLength, sizeof (vector_load), vecComp);
 	reportVectorStats (retainedL, "Retained fragment length distribution");
