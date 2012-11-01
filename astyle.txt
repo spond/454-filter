@@ -1,0 +1,32 @@
+# astyle options file
+
+# use K&R style, which attaches brackets within a function only
+--style=kr
+
+--indent=spaces=4
+
+# --indent-switches
+
+--indent-namespaces
+
+--min-conditional-indent=0
+
+--break-blocks
+
+--pad-oper
+
+# maybe revisit this choice
+--pad-paren-in
+
+--delete-empty-lines
+
+--break-closing-brackets
+
+--convert-tabs
+
+--align-pointer=middle
+--align-reference=middle
+
+--suffix=.bak
+
+--lineend=linux
