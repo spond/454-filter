@@ -7,7 +7,7 @@
 #include <cstring>
 
 inline
-const char * basename( const char * path )
+const char * __basename( const char * path )
 {
     long i;
 
@@ -30,7 +30,7 @@ const char * basename( const char * path )
 #define __CHECK_PTR( ptr ) \
 { \
     if ( !ptr ) { \
-        fprintf( stderr, "\nERROR (file: %s, line: %d): memory allocation failure\n", basename( __FILE__ ), __LINE__ ); \
+        fprintf( stderr, "\nERROR (file: %s, line: %d): memory allocation failure\n", __basename( __FILE__ ), __LINE__ ); \
         exit( 1 ); \
     } \
 }

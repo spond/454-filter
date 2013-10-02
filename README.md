@@ -76,19 +76,22 @@ To try it using the example data provided:
 ARGUMENTS
 ---------
 
-    -q QSCORE   : minimum per-base quality score below which a read will be split
-                  or truncated (default=20)
-    
-    -l LENGTH   : minimum retained fragment LENGTH (default=50)
-    
-    -m MODE     : MODE is a 3-bitmask (an integer in [0-7], default=0):
-                  if the lowest bit is set, a low q-score causes reads to be split,
-                  otherwise they are truncated;
-                  if the second bit is set, low q-score homopolymers are tolerated;
-                  and if the highest bit is set, low q-score 'N's are tolerated
-    
-    -T PREFIX   : if supplied, only reads with this PREFIX are retained,
-                  and the PREFIX is stripped from each contributing read
-    
-    -t MISMATCH : if PREFIX is supplied, prefix matching tolerates at most
-                  MISMATCH mismatches (default=0)
+    optional arguments:
+    -h, --help               show this help message and exit
+    -o OUTPUT                direct retained fragments to a file named OUTPUT (default=stdout)
+    -q QSCORE                minimum per-base quality score below which a read will be split
+                             or truncated (default=20)
+    -l LENGTH                minimum retained fragment LENGTH (default=50)
+    -m MODE                  MODE is a 3-bitmask (an integer in [0-7], default=0):
+                             if the lowest bit is set, it is like passing -s;
+                             if the middle bit is set, it is like passing -p;
+                             and if the highest bit is set, it is like passing -a
+    -s                       when encountering a low q-score, split instead of truncate
+    -p                       tolerate low q-score homopolymeric regions
+    -a                       tolerate low q-score ambiguous nucleotides
+    -T PREFIX                if supplied, only reads with this PREFIX are retained,
+                             and the PREFIX is stripped from each contributing read
+    -t MISMATCH              if PREFIX is supplied, prefix matching tolerates at most
+                             MISMATCH mismatches (default=0)
+    -f FORMAT                output in FASTA or FASTQ format (default=FASTA)
+    -j                       output run diagnostics to stderr as JSON (default is to write ASCII text)
