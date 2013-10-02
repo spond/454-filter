@@ -5,7 +5,7 @@
 #include "ifile.hpp"
 
 // program name
-#define QFILT "qfilt"
+#define PROGNAME "qfilt"
 
 // argument defaults
 #define DEFAULT_MIN_LENGTH 50

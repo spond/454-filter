@@ -155,7 +155,7 @@ int main( int argc, const char * argv[] )
 
         if ( args.punch ) {
             char buf[BUF_LEN + 1];
-            int i;
+            size_t i;
 
             buf[BUF_LEN] = '\0';
 

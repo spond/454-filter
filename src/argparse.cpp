@@ -15,7 +15,7 @@
 namespace argparse
 {
     const char usage[] =
-        "usage: " QFILT " [-h] "
+        "usage: " PROGNAME " [-h] "
         "[-o OUTPUT] "
         "[-q QSCORE] "
         "[-l LENGTH] "
@@ -66,7 +66,7 @@ namespace argparse
     void ERROR( const char * msg, ... )
     {
         va_list args;
-        fprintf( stderr, "%s" QFILT ": error: ", usage );
+        fprintf( stderr, "%s" PROGNAME ": error: ", usage );
         va_start( args, msg );
         vfprintf( stderr, msg, args );
         va_end( args );
@@ -74,10 +74,19 @@ namespace argparse
         exit( 1 );
     }
 
-    args_t::args_t( int argc, const char * argv[] ) :
+     const char * next_arg (int& i, const int argc, const char * argv[]) {
+      i++;
+      if (i == argc)
+        ERROR ("ran out of command line arguments");
+      
+      return argv[i];
+      
+    }
+
+   args_t::args_t( int argc, const char * argv[] ) :
         fasta( NULL ),
         fastq( NULL ),
-        qual( NULL ),
+        qual ( NULL ),
         output( stdout ),
         min_length( DEFAULT_MIN_LENGTH ),
         min_qscore( DEFAULT_MIN_QSCORE ),
@@ -99,18 +108,6 @@ namespace argparse
 
             if ( arg[0] == '-' && arg[1] == '-' ) {
                 if ( !strcmp( &arg[2], "help" ) ) help();
-#if 0
-                else if ( !strcmp( &arg[2], "fastq" ) ) parse_fastq( argv[++i] );
-                else if ( !strcmp( &arg[2], "fasta" ) ) {
-                    parse_fasta( argv[i + 1], argv[i + 2] );
-                    i += 2;
-                }
-                else if ( !strcmp( &arg[2], "minlength" ) ) parse_minlength( argv[++i] );
-                else if ( !strcmp( &arg[2], "minqscore" ) ) parse_minqscore( argv[++i] );
-                else if ( !strcmp( &arg[2], "mode" ) ) parse_mode( argv[++i] );
-                else if ( !strcmp( &arg[2], "tag" ) ) parse_tag( argv[++i] );
-                else if ( !strcmp( &arg[2], "tagmismatch" ) ) parse_tagmismatch( argv[++i] );
-#endif
                 else
                     ERROR( "unknown argument: %s", arg );
             }
@@ -120,19 +117,19 @@ namespace argparse
                     parse_fasta( argv[i + 1], argv[i + 2] );
                     i += 2;
                 }
-                else if ( !strcmp( &arg[1], "Q" ) ) parse_fastq( argv[++i] );
-                else if ( !strcmp( &arg[1], "o" ) ) parse_output( argv[++i] );
-                else if ( !strcmp( &arg[1], "l" ) ) parse_minlength( argv[++i] );
-                else if ( !strcmp( &arg[1], "q" ) ) parse_minqscore( argv[++i] );
-                else if ( !strcmp( &arg[1], "m" ) ) parse_mode( argv[++i] );
+                else if ( !strcmp( &arg[1], "Q" ) ) parse_fastq( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "o" ) ) parse_output( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "l" ) ) parse_minlength( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "q" ) ) parse_minqscore( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "m" ) ) parse_mode( next_arg (i, argc, argv) );
                 else if ( !strcmp( &arg[1], "s" ) ) parse_split();
                 else if ( !strcmp( &arg[1], "p" ) ) parse_hpoly();
                 else if ( !strcmp( &arg[1], "a" ) ) parse_ambig();
                 else if ( !strcmp( &arg[1], "j" ) ) parse_json();
-                else if ( !strcmp( &arg[1], "P" ) ) parse_punch( argv[++i] );
-                else if ( !strcmp( &arg[1], "T" ) ) parse_tag( argv[++i] );
-                else if ( !strcmp( &arg[1], "t" ) ) parse_tagmismatch( argv[++i] );
-                else if ( !strcmp( &arg[1], "f" ) ) parse_format( argv[++i] );
+                else if ( !strcmp( &arg[1], "P" ) ) parse_punch( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "T" ) ) parse_tag( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "t" ) ) parse_tagmismatch( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "f" ) ) parse_format( next_arg (i, argc, argv) );
                 else
                     ERROR( "unknown argument: %s", arg );
             }
