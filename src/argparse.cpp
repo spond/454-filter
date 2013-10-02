@@ -74,19 +74,17 @@ namespace argparse
         exit( 1 );
     }
 
-     const char * next_arg (int& i, const int argc, const char * argv[]) {
-      i++;
-      if (i == argc)
-        ERROR ("ran out of command line arguments");
+    const char * next_arg( int & i, const int argc, const char * argv[] ) {
+        if ( ++i >= argc )
+            ERROR("ran out of command line arguments");
       
-      return argv[i];
-      
+        return argv[i];
     }
 
-   args_t::args_t( int argc, const char * argv[] ) :
+    args_t::args_t( int argc, const char * argv[] ) :
         fasta( NULL ),
         fastq( NULL ),
-        qual ( NULL ),
+        qual( NULL ),
         output( stdout ),
         min_length( DEFAULT_MIN_LENGTH ),
         min_qscore( DEFAULT_MIN_QSCORE ),
@@ -117,19 +115,19 @@ namespace argparse
                     parse_fasta( argv[i + 1], argv[i + 2] );
                     i += 2;
                 }
-                else if ( !strcmp( &arg[1], "Q" ) ) parse_fastq( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "o" ) ) parse_output( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "l" ) ) parse_minlength( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "q" ) ) parse_minqscore( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "m" ) ) parse_mode( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "Q" ) ) parse_fastq( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "o" ) ) parse_output( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "l" ) ) parse_minlength( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "q" ) ) parse_minqscore( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "m" ) ) parse_mode( next_arg( i, argc, argv ) );
                 else if ( !strcmp( &arg[1], "s" ) ) parse_split();
                 else if ( !strcmp( &arg[1], "p" ) ) parse_hpoly();
                 else if ( !strcmp( &arg[1], "a" ) ) parse_ambig();
                 else if ( !strcmp( &arg[1], "j" ) ) parse_json();
-                else if ( !strcmp( &arg[1], "P" ) ) parse_punch( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "T" ) ) parse_tag( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "t" ) ) parse_tagmismatch( next_arg (i, argc, argv) );
-                else if ( !strcmp( &arg[1], "f" ) ) parse_format( next_arg (i, argc, argv) );
+                else if ( !strcmp( &arg[1], "P" ) ) parse_punch( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "T" ) ) parse_tag( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "t" ) ) parse_tagmismatch( next_arg( i, argc, argv ) );
+                else if ( !strcmp( &arg[1], "f" ) ) parse_format( next_arg( i, argc, argv ) );
                 else
                     ERROR( "unknown argument: %s", arg );
             }
