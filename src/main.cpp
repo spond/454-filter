@@ -46,7 +46,7 @@ void fprint_vector_stats( FILE * file, std::vector<size_t> & vec, const char * h
         max = vec[i - 1];
     }
 
-    if (do_json) {
+    if ( do_json ) {
         fprintf( file, ",\n\t\"%s\": {"
                  "\n\t\t\"mean\":                %g,"
                  "\n\t\t\"median\":              %g,"
@@ -71,7 +71,7 @@ void fprint_vector_stats( FILE * file, std::vector<size_t> & vec, const char * h
         fprintf( file, "\n%s\n"
                  "    mean:                %g\n"
                  "    median:              %g\n"
-                 "    variance             %g\n"
+                 "    variance:            %g\n"
                  "    standard deviation:  %g\n"
                  "    min:                 %ld\n"
                  "    2.5%%:                %ld\n"
